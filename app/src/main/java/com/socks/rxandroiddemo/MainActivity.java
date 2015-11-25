@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.socks.library.KLog;
 import com.socks.rxandroiddemo.http.HttpManager;
 
+import rx.Subscription;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView tv_response;
@@ -69,13 +71,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void doOnNext(View view) {
         clear();
-        HttpManager.flatMap()
+        Subscription subscription = HttpManager.flatMap()
                 .doOnNext(user -> KLog.d(user))
                 .subscribe(user -> {
                     tv_response.setText(tv_response.getText() + "\n" + user.toString());
                 }, e -> {
                     tv_response.setText(e.getMessage());
                 });
+
+        tv_response.postDelayed(() -> subscription.unsubscribe(), 1000);
+
     }
 
     private void clear() {

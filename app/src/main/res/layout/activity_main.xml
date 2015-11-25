@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="doOnNext"
-                android:text="doOnNext" />
+                android:text="do On Next" />
         </LinearLayout>
     </ScrollView>
 
